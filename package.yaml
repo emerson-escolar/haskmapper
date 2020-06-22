@@ -1,0 +1,44 @@
+name:                haskmapper
+version:             0.1.0.0
+github:              "emerson-escolar/haskmapper"
+license:             BSD3
+author:              "Emerson Escolar"
+maintainer:          "example@example.com"
+copyright:           "2020 Emerson Escolar"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+synopsis:            An implementation of the Mapper algorithm in Haskell
+category:            Data Science
+
+description:         Please see the README on GitHub at <https://github.com/emerson-escolar/haskmapper#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  haskmapper-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - haskmapper
+
+tests:
+  haskmapper-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - haskmapper

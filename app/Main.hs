@@ -1,6 +1,7 @@
 module Main where
 
-import Lib
+import qualified Lib
+import qualified PCA
 
 main :: IO ()
 main = someFunc

@@ -20,13 +20,14 @@ mean a =
 deMean :: RowData -> RowData
 deMean a = a - mean a
 
-
+pca :: Int -> RowData -> ([Double], RowData)
 pca nComponents a =
   let (_, vec, uni) = LA.svd $ deMean a
-      vec' = take nComponents (LAD.toList vec)
-      uni' = LAD.fromColumns $ take nComponents (LAD.toColumns $ LAD.tr uni)
-  in (vec', uni')
+      singVals = take nComponents (LAD.toList vec)
+      pcaAxes = LAD.fromRows $ take nComponents (LAD.toRows $ LAD.tr uni)
+  in (singVals, pcaAxes)
 
+pcaTransform :: Int -> RowData -> RowData
 pcaTransform nComponents a =
   let (_, u) = pca nComponents a in (deMean a) LA.<> LAD.tr u
 
@@ -38,11 +39,6 @@ main = do m <- LAD.loadMatrix "sample.txt";
           print $ mean m;
           print $ pcaFull m;
           return $ pcaFullTransform m
-          -- let obs = toRows m
-          --     dat = array (1, length obs) (zip [1..] obs)
-          -- print obs;
-          -- return $ pca dat (-1)
-
 
 fooBar =
   (LAD.loadMatrix "sample.txt") >>=

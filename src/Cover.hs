@@ -7,8 +7,8 @@ import qualified Numeric.LinearAlgebra.Data as LAD
 
 
 bounds :: RowData -> RectBound
-bounds a =
-  let cols = LAD.toColumns a
+bounds x =
+  let cols = LAD.toColumns x
   in  (LAD.vector (map LAD.minElement cols),
        LAD.vector (map LAD.maxElement cols))
 
@@ -33,7 +33,10 @@ genHyperCubes n p bds =
   in zip lbPoints ubPoints
 
 
-
+filterPoints bd x =
+  let (lB, uB) = bd
+      xRows = LAD.toRows x
+  in [xRow | xRow <- xRows, lB <= xRow, xRow <= uB]
 
 
 uniformCover n p lens = ()

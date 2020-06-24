@@ -5,6 +5,7 @@ import Types
 import qualified Numeric.LinearAlgebra as LA
 import qualified Numeric.LinearAlgebra.Data as LAD
 
+-- import qualified Data.Vector.Storable as DVS
 
 bounds :: RowData -> RectBound
 bounds x =

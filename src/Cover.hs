@@ -32,11 +32,12 @@ genHyperCubes n p bds =
       ubPoints = map LAD.fromList (sequence ubs)
   in zip lbPoints ubPoints
 
-
+filterPoints :: RectBound -> RowData -> [Point]
 filterPoints bd x =
   let (lB, uB) = bd
       xRows = LAD.toRows x
   in [xRow | xRow <- xRows, lB <= xRow, xRow <= uB]
 
-
-uniformCover n p lens = ()
+uniformCover :: (Integral a) => a -> Double -> RowData -> [[Point]]
+uniformCover n p x =
+  [filterPoints bd x | bd<-genHyperCubes n p (bounds x)]
